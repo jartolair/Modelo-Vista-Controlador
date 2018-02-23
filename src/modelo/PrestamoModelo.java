@@ -119,5 +119,22 @@ public class PrestamoModelo extends Conector{
 		java.sql.Date sqlDate=new java.sql.Date(utilDate.getTime());
 		return sqlDate;
 	}
+
+	public boolean estaDisponible(int idLibro) {
+		// TODO Auto-generated method stub
+		try {
+			PreparedStatement pst=this.conexion.prepareStatement("Select * from prestamos where id_libro=? and entregado=false");
+			pst.setInt(1, idLibro);
+			ResultSet rst=pst.executeQuery();
+			if(rst.next()){
+				return false;
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		return true;
+	}
 	
 }
